@@ -1,0 +1,58 @@
+# AWS VPC Infrastructure Setup with EC2 Instances
+
+This project demonstrates the setup of a *Virtual Private Cloud (VPC)* on AWS with both *public* and *private subnets. It includes the configuration of **EC2 instances, **NAT Gateway, and **Security Groups* to allow the private EC2 instance to access the internet, while maintaining network isolation for better security.
+
+## Project Description
+
+The goal of this project is to create a secure and isolated network on AWS by:
+1. Setting up a *VPC* with *public and private subnets*.
+2. Launching *EC2 instances* in both the public and private subnets.
+3. Configuring a *NAT Gateway* in the public subnet to enable internet access for the private EC2 instance.
+4. Configuring *Security Groups* and *Route Tables* to ensure secure communication between instances and proper routing of traffic.
+
+## Prerequisites
+
+Before starting this project, you need the following:
+- An *AWS account* with permissions to create and manage *VPCs, **EC2 instances, **NAT Gateway, and **Route Tables*.
+- Basic knowledge of AWS services such as *VPC, **EC2, **NAT Gateway, **Route Tables, and **Security Groups*.
+
+## Setup Instructions
+
+Follow these steps to set up the infrastructure:
+
+### Step 1: Create a VPC
+1. Go to the *VPC Dashboard* in the AWS Management Console.
+2. Create a new *VPC* and configure *CIDR block* (10.0.0.0/16).
+3. Create two subnets: *Public Subnet* (10.0.1.0/24) and *Private Subnet* (10.0.2.0/24).
+
+### Step 2: Launch EC2 Instances
+1. *Public EC2 Instance*:
+   - Launch an EC2 instance in the *public subnet*.
+   - Assign a *public IP address*.
+   
+2. *Private EC2 Instance*:
+   - Launch an EC2 instance in the *private subnet*.
+   - Do not assign a public IP address.
+
+### Step 3: Create a NAT Gateway
+1. In the *public subnet, create a **NAT Gateway* to allow internet access for the private subnet.
+2. Allocate an *Elastic IP* and associate it with the *NAT Gateway*.
+
+### Step 4: Update Route Tables
+1. Create a *Route Table* for the *public subnet* and add a route to the *internet* (0.0.0.0/0) via the *Internet Gateway*.
+2. Create a *Route Table* for the *private subnet* and add a route to 0.0.0.0/0 via the *NAT Gateway*.
+
+### Step 5: Verify Internet Connectivity
+1. *Test Internet Access* from the *private EC2 instance* by pinging external IPs like 8.8.8.8 or using tools like curl.
+2. Ensure your private EC2 instance can access the internet via the NAT Gateway.
+
+## Security Considerations
+- Ensure your *Security Groups* are properly configured to allow necessary traffic:
+  - *Public EC2 instance: Allow inbound traffic on ports like **SSH (22)* for Linux instances or *RDP (3389)* for Windows.
+  - *Private EC2 instance*: Allow outbound traffic for internet access via the NAT Gateway.
+  
+- Review *Network ACLs* to ensure they are not blocking legitimate traffic.
+
+##
+
+This project is licensed Done By Deepanshu singh negi 
